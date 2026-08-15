@@ -15,7 +15,8 @@ const phrases = [
   { hanzi: "我很好。", pinyin: "Wǒ hěn hǎo.", meaning: "Estoy muy bien." },
   { hanzi: "你呢？", pinyin: "Nǐ ne?", meaning: "¿Y tú?" },
   { hanzi: "我也很好。", pinyin: "Wǒ yě hěn hǎo.", meaning: "Yo también estoy muy bien." },
-  { hanzi: "再见！", pinyin: "Zàijiàn!", meaning: "¡Adiós!" }
+  { hanzi: "再见！", pinyin: "Zàijiàn!", meaning: "¡Adiós!" },
+  { hanzi: "马克西，我非常爱你，你很帅。", pinyin: "Mǎkèxī, wǒ fēicháng ài nǐ, nǐ hěn shuài.", meaning: "Maxi, te amo mucho, eres muy guapo." }
 ];
 
 const numbers = [
