@@ -1,9 +1,9 @@
-const CACHE = "chino-basico-v4";
+const CACHE = "chino-basico-v5";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=3",
-  "./app.js?v=4",
+  "./styles.css?v=5",
+  "./app.js?v=5",
   "./manifest.webmanifest",
   "./icons/icon.svg"
 ];
