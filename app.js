@@ -18,6 +18,19 @@ const phrases = [
   { hanzi: "再见！", pinyin: "Zàijiàn!", meaning: "¡Adiós!" }
 ];
 
+const numbers = [
+  { hanzi: "一", pinyin: "yī", meaning: "1 · uno" },
+  { hanzi: "二", pinyin: "èr", meaning: "2 · dos" },
+  { hanzi: "三", pinyin: "sān", meaning: "3 · tres" },
+  { hanzi: "四", pinyin: "sì", meaning: "4 · cuatro" },
+  { hanzi: "五", pinyin: "wǔ", meaning: "5 · cinco" },
+  { hanzi: "六", pinyin: "liù", meaning: "6 · seis" },
+  { hanzi: "七", pinyin: "qī", meaning: "7 · siete" },
+  { hanzi: "八", pinyin: "bā", meaning: "8 · ocho" },
+  { hanzi: "九", pinyin: "jiǔ", meaning: "9 · nueve" },
+  { hanzi: "十", pinyin: "shí", meaning: "10 · diez" }
+];
+
 let currentWord = 0;
 let deferredPrompt = null;
 let quizQuestions = [];
@@ -98,6 +111,61 @@ function renderPhrases() {
 
   document.querySelectorAll(".phrase-speak").forEach(btn => {
     btn.addEventListener("click", () => speakChinese(phrases[Number(btn.dataset.index)].hanzi));
+  });
+}
+
+function setupNumbersSection() {
+  const routeGrid = document.querySelector(".route-grid");
+  if (routeGrid && !document.querySelector('[data-go="numeros"]')) {
+    const route = document.createElement("button");
+    route.className = "route-card";
+    route.dataset.go = "numeros";
+    route.innerHTML = `
+      <span class="route-icon">十</span>
+      <span><b>Números 1–10</b><small>Aprende a contar en chino</small></span>
+    `;
+    route.addEventListener("click", () => navigate("numeros"));
+    routeGrid.appendChild(route);
+  }
+
+  const main = document.querySelector("main");
+  if (main && !$("numeros")) {
+    const section = document.createElement("section");
+    section.id = "numeros";
+    section.className = "screen";
+    section.innerHTML = `
+      <div class="screen-heading">
+        <div>
+          <span class="eyebrow">NÚMEROS</span>
+          <h2>Del 1 al 10</h2>
+        </div>
+        <span class="counter">一 → 十</span>
+      </div>
+      <div id="numberList" class="phrase-list"></div>
+    `;
+    main.appendChild(section);
+  }
+
+  renderNumbers();
+}
+
+function renderNumbers() {
+  const list = $("numberList");
+  if (!list) return;
+
+  list.innerHTML = numbers.map((n, i) => `
+    <article class="phrase-card">
+      <div>
+        <div class="phrase-hanzi">${n.hanzi}</div>
+        <div class="phrase-pinyin">${n.pinyin}</div>
+        <div class="phrase-meaning">${n.meaning}</div>
+      </div>
+      <button class="icon-btn number-speak" data-index="${i}" type="button" aria-label="Escuchar ${n.hanzi}">🔊</button>
+    </article>
+  `).join("");
+
+  document.querySelectorAll(".number-speak").forEach(btn => {
+    btn.addEventListener("click", () => speakChinese(numbers[Number(btn.dataset.index)].hanzi));
   });
 }
 
@@ -227,5 +295,6 @@ if ("serviceWorker" in navigator) {
 }
 
 renderPhrases();
+setupNumbersSection();
 renderWord();
 updateStats();
