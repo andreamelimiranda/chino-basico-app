@@ -1,4 +1,4 @@
-const CACHE = "chino-basico-v1";
+const CACHE = "chino-basico-v2";
 const ASSETS = [
   "./",
   "./index.html",
