@@ -1,9 +1,9 @@
-const CACHE = "chino-basico-v2";
+const CACHE = "chino-basico-v3";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css",
-  "./app.js",
+  "./styles.css?v=3",
+  "./app.js?v=3",
   "./manifest.webmanifest",
   "./icons/icon.svg"
 ];
@@ -22,11 +22,26 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
+
+  const req = event.request;
+  const isPageOrCode = req.mode === "navigate" || ["script", "style"].includes(req.destination);
+
+  if (isPageOrCode) {
+    event.respondWith(
+      fetch(req).then(response => {
+        const copy = response.clone();
+        caches.open(CACHE).then(cache => cache.put(req, copy));
+        return response;
+      }).catch(() => caches.match(req).then(cached => cached || caches.match("./index.html")))
+    );
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {
+    caches.match(req).then(cached => cached || fetch(req).then(response => {
       const copy = response.clone();
-      caches.open(CACHE).then(cache => cache.put(event.request, copy));
+      caches.open(CACHE).then(cache => cache.put(req, copy));
       return response;
-    }).catch(() => caches.match("./index.html")))
+    }))
   );
 });
