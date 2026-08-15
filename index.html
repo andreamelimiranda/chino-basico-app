@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="description" content="App básica para aprender chino mandarín: vocabulario, frases, pronunciación y mini quiz." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon.svg" />
+  <link rel="apple-touch-icon" href="icons/icon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Chino Básico</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">MANDARÍN · NIVEL 1</div>
+        <h1>Chino Básico</h1>
+      </div>
+      <button id="installBtn" class="icon-btn hidden" type="button" aria-label="Instalar aplicación">＋</button>
+    </header>
+
+    <main>
+      <section id="inicio" class="screen active">
+        <article class="hero-card">
+          <div class="hero-copy">
+            <span class="pill">你好 · Nǐ hǎo</span>
+            <h2>Aprende tus primeras palabras en chino.</h2>
+            <p>Empieza con vocabulario, frases cortas, pronunciación y un mini‑quiz.</p>
+            <button class="primary-btn" data-go="aprender">Comenzar</button>
+          </div>
+          <div class="hanzi-orb">你</div>
+        </article>
+
+        <div class="stats">
+          <article class="stat-card">
+            <span class="stat-label">Palabras vistas</span>
+            <strong id="seenCount">0</strong>
+            <span>de 8</span>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Mejor quiz</span>
+            <strong id="bestScore">0</strong>
+            <span>de 5</span>
+          </article>
+        </div>
+
+        <h3 class="section-title">Ruta básica</h3>
+        <div class="route-grid">
+          <button class="route-card" data-go="aprender">
+            <span class="route-icon">字</span>
+            <span><b>Vocabulario</b><small>8 palabras esenciales</small></span>
+          </button>
+          <button class="route-card" data-go="frases">
+            <span class="route-icon">说</span>
+            <span><b>Frases</b><small>Saludos y respuestas</small></span>
+          </button>
+          <button class="route-card" data-go="quiz">
+            <span class="route-icon">✓</span>
+            <span><b>Mini‑quiz</b><small>5 preguntas rápidas</small></span>
+          </button>
+          <button class="route-card" data-go="escritura">
+            <span class="route-icon">✎</span>
+            <span><b>Escritura</b><small>Practica trazando</small></span>
+          </button>
+        </div>
+      </section>
+
+      <section id="aprender" class="screen">
+        <div class="screen-heading">
+          <div>
+            <span class="eyebrow">VOCABULARIO</span>
+            <h2>8 palabras básicas</h2>
+          </div>
+          <span id="wordIndex" class="counter">1 / 8</span>
+        </div>
+
+        <article class="flashcard">
+          <div id="hanzi" class="hanzi">你</div>
+          <div id="pinyin" class="pinyin">nǐ</div>
+          <button id="speakWord" class="sound-btn" type="button">🔊 Escuchar</button>
+          <div class="divider"></div>
+          <div id="meaning" class="meaning">tú / usted</div>
+          <div id="tip" class="tip">Tercer tono: baja y luego sube.</div>
+        </article>
+
+        <div class="card-actions">
+          <button id="prevWord" class="secondary-btn" type="button">← Anterior</button>
+          <button id="nextWord" class="primary-btn" type="button">Siguiente →</button>
+        </div>
+      </section>
+
+      <section id="frases" class="screen">
+        <div class="screen-heading">
+          <div>
+            <span class="eyebrow">FRASES</span>
+            <h2>Primera conversación</h2>
+          </div>
+        </div>
+        <div id="phraseList" class="phrase-list"></div>
+      </section>
+
+      <section id="quiz" class="screen">
+        <div class="screen-heading">
+          <div>
+            <span class="eyebrow">PRÁCTICA</span>
+            <h2>Mini‑quiz</h2>
+          </div>
+          <span id="quizProgress" class="counter">1 / 5</span>
+        </div>
+
+        <article id="quizCard" class="quiz-card">
+          <span class="quiz-label">¿Qué significa?</span>
+          <div id="quizHanzi" class="quiz-hanzi">你好</div>
+          <div id="quizPinyin" class="quiz-pinyin">nǐ hǎo</div>
+          <div id="answers" class="answers"></div>
+        </article>
+
+        <article id="quizResult" class="result-card hidden">
+          <div class="result-emoji">🎉</div>
+          <h3>¡Terminaste!</h3>
+          <p id="resultText">Obtuviste 0 de 5.</p>
+          <button id="restartQuiz" class="primary-btn" type="button">Intentar de nuevo</button>
+        </article>
+      </section>
+
+      <section id="escritura" class="screen">
+        <div class="screen-heading">
+          <div>
+            <span class="eyebrow">ESCRITURA</span>
+            <h2>Practica el carácter 你</h2>
+          </div>
+        </div>
+
+        <article class="writing-card">
+          <div class="model-character">你</div>
+          <p>Usa el dedo o el mouse para intentar copiar el carácter.</p>
+          <canvas id="drawCanvas" width="600" height="600" aria-label="Área para practicar escritura"></canvas>
+          <div class="card-actions">
+            <button id="clearCanvas" class="secondary-btn" type="button">Borrar</button>
+            <button id="speakNi" class="primary-btn" type="button">🔊 nǐ</button>
+          </div>
+          <small class="writing-note">Consejo: al principio importa más reconocer la forma que escribir perfecto.</small>
+        </article>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <button class="nav-item active" data-go="inicio"><span>⌂</span><small>Inicio</small></button>
+      <button class="nav-item" data-go="aprender"><span>字</span><small>Aprender</small></button>
+      <button class="nav-item" data-go="frases"><span>说</span><small>Frases</small></button>
+      <button class="nav-item" data-go="quiz"><span>✓</span><small>Quiz</small></button>
+    </nav>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
